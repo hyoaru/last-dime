@@ -34,7 +34,7 @@ This structure is normalized to allow for flexible classification of expenses, w
 erDiagram
 
     users {
-        int id
+        uuid id
         string first_name
         string last_name
         string username
@@ -44,16 +44,16 @@ erDiagram
     }
 
     financial_account_types {
-        int id
+        uuid id
         string name
         datetime created_at
         datetime updated_at
     }
 
     financial_accounts {
-        int id
-        int user_id
-        int financial_account_type_id
+        uuid id
+        uuid user_id
+        uuid financial_account_type_id
         string name
         float balance
         datetime created_at
@@ -61,34 +61,34 @@ erDiagram
     }
 
     transaction_types {
-        int id
+        uuid id
         string name
         datetime created_at
         datetime updated_at
     }
 
     transaction_classification {
-        int id
+        uuid id
         string name
         datetime created_at
         datetime updated_at
     }
 
     transaction_categories {
-        int id
-        int transaction_type_id
-        int transaction_classification_id
+        uuid id
+        uuid transaction_type_id
+        uuid transaction_classification_id
         string name
         datetime created_at
         datetime updated_at
     }
 
     transactions {
-        int id
-        int user_id
-        int transaction_type_id
-        int financial_account_id
-        int transaction_category_id
+        uuid id
+        uuid user_id
+        uuid transaction_type_id
+        uuid financial_account_id
+        uuid transaction_category_id
         string description
         float amount
         string note
