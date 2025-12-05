@@ -9,13 +9,13 @@ import (
 	database "github.com/hyoaru/last-dime/api/internal/database"
 )
 
-func NewPostgresStore() *PostgresStore {
+func New() *Store {
 	port, err := strconv.Atoi(os.Getenv("DATABASE_PORT"))
 	if err != nil {
 		log.Fatal("Port is not a valid integer", err)
 	}
 
-	var c dtbstore.DatabaseConnector = &postgresConnector{
+	var c dtbstore.Connector = &connector{
 		host:     os.Getenv("DATABASE_HOST"),
 		port:     uint16(port),
 		user:     os.Getenv("DATABASE_USER"),
@@ -27,5 +27,5 @@ func NewPostgresStore() *PostgresStore {
 		log.Fatal("Error connecting to database", err)
 	}
 
-	return &PostgresStore{Queries: database.New(db)}
+	return &Store{Queries: database.New(db)}
 }

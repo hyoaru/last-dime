@@ -2,7 +2,7 @@ package dtbstore
 
 import "database/sql"
 
-type DatabaseConnector interface {
+type Connector interface {
 	GetConnectionString() string
 	Connect() (*sql.DB, error)
 }
