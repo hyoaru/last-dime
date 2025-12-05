@@ -5,6 +5,8 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+
+	app "github.com/hyoaru/last-dime/api/internal"
 )
 
 func main() {
@@ -12,12 +14,12 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	app := &application{
-		config: config{
-			addr: ":" + os.Getenv("PORT"),
+	app := &app.Application{
+		Config: app.Config{
+			Addr: ":" + os.Getenv("PORT"),
 		},
 	}
 
-	mux := app.mount()
-	log.Fatal(app.run(mux))
+	mux := app.Mount()
+	log.Fatal(app.Run(mux))
 }

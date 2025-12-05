@@ -1,4 +1,4 @@
-package main
+package app
 
 import (
 	"log"
@@ -7,17 +7,10 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	handler "github.com/hyoaru/last-dime/api/internal/api/handlers/base"
 )
 
-type config struct {
-	addr string
-}
-
-type application struct {
-	config config
-}
-
-func (app *application) mount() *chi.Mux {
+func (app *Application) Mount() *chi.Mux {
 	mux := chi.NewRouter()
 	mux.Use(middleware.RequestID)
 	mux.Use(middleware.RealIP)
@@ -26,15 +19,15 @@ func (app *application) mount() *chi.Mux {
 	mux.Use(middleware.Timeout(60 * time.Second))
 
 	mux.Route("/v1", func(r chi.Router) {
-		r.Get("/health", app.healthCheckHandler)
+		r.Get("/health", handler.HealthCheckHandler)
 	})
 
 	return mux
 }
 
-func (app *application) run(mux *chi.Mux) error {
+func (app *Application) Run(mux *chi.Mux) error {
 	srv := &http.Server{
-		Addr:         app.config.addr,
+		Addr:         app.Config.Addr,
 		Handler:      mux,
 		WriteTimeout: time.Second * 30,
 		ReadTimeout:  time.Second * 10,
