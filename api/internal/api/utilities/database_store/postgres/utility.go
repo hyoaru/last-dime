@@ -1,4 +1,4 @@
-package pgstore
+package utility
 
 import (
 	"log"
@@ -9,13 +9,13 @@ import (
 	database "github.com/hyoaru/last-dime/api/internal/database"
 )
 
-func New() *Store {
+func New() *PgDtbStore {
 	port, err := strconv.Atoi(os.Getenv("DATABASE_PORT"))
 	if err != nil {
 		log.Fatal("Port is not a valid integer", err)
 	}
 
-	var c dtbstore.Connector = &connector{
+	var c dtbstore.DatabaseConnector = &postgresDatabaseConnector{
 		host:     os.Getenv("DATABASE_HOST"),
 		port:     uint16(port),
 		user:     os.Getenv("DATABASE_USER"),
@@ -27,5 +27,5 @@ func New() *Store {
 		log.Fatal("Error connecting to database", err)
 	}
 
-	return &Store{Queries: database.New(db)}
+	return &PgDtbStore{Queries: database.New(db)}
 }

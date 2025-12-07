@@ -1,8 +1,8 @@
-package pgstore
+package utility
 
 import database "github.com/hyoaru/last-dime/api/internal/database"
 
-type connector struct {
+type postgresDatabaseConnector struct {
 	host     string
 	port     uint16
 	user     string
@@ -10,6 +10,6 @@ type connector struct {
 	database string
 }
 
-type Store struct {
+type PgDtbStore struct {
 	Queries *database.Queries
 }
